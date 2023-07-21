@@ -48,8 +48,6 @@ jobs:
 
     - name: build kernel
       run: |
-        ls
-        cd build-ubuntu-kernel
         ./build_kernel.sh
 
     - name: Upload to Github
