@@ -1,0 +1,88 @@
+name: Build_X86_Kernel_for_OpenHD
+
+on: [push]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    env:
+      CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y git build-essential kernel-wedge fakeroot flex bison binutils-dev libssl-dev libelf-dev libslang2-dev libpci-dev libiberty-dev libcap-dev libudev-dev libdw-dev libunwind-dev libncurses-dev libzstd-dev libnuma-dev libbabeltrace-dev default-jre default-jdk linux-cloud-tools-common linux-tools-$(uname -r)
+        
+    # - name: clone drivers into kernel
+    #   run: |
+    #     mkdir -p lunar/workdir
+    #     cd lunar/workdir
+    #     git clone https://github.com/OpenHD/rtl8812au
+    #     cd rtl8812au
+    #     cd ../../drivers/net/wireless/
+    #     mkdir -p rtl8812au
+    #     cd ../../../workdir/rtl8812au
+    #     mv * ../../drivers/net/wireless/rtl8812au/
+    #     ls ../../drivers/net/wireless/rtl8812au/
+    #     cd ../../../
+    #     rm -Rf workdir
+    #     cd lunar/drivers/net/wireless/
+    #     echo 'obj-$(CONFIG_RTL8812AU) += rtl8812au/' >> Makefile
+    #     ls ../..
+    #     echo "checkpoint"
+    #     sed -i '1s/^/CONFIG_RTL8812AU=m\n/' ../../../arch/x86/configs/x86_64_defconfig
+    #     echo "$(cat Makefile)"
+    #     cat ../../../arch/x86/configs/x86_64_defconfig
+    #     echo "testing 2222____________________________"
+    #     sed -i '40s/.*/source "drivers\/net\/wireless\/rtl8812au\/Kconfig"/' Kconfig
+    #     echo "$(cat Kconfig)"
+    #     cd ../../../
+
+    - name: build kernel
+      run: |
+        cd build-ubuntu-kernel
+        ./build_kernel.sh
+
+    - name: Upload to Github
+      uses: 'actions/upload-artifact@v2'
+      with:
+        name: "rock5-kernel-openhd"
+        path: |
+          *.deb
+          
+    # - name: Push
+    #   id: push
+    #   uses: cloudsmith-io/action@master
+    #   with:
+    #     api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+    #     command: "push"
+    #     format: "deb"
+    #     owner: "openhd"
+    #     repo: "openhd-2-3-evo"
+    #     distro: "ubuntu"
+    #     release: "jammy"
+    #     republish: "true" # needed ONLY if version is not changing
+    #     file: "linux-image*.deb"
+
+    # - name: Push header
+    #   id: push_headers
+    #   uses: cloudsmith-io/action@master
+    #   with:
+    #     api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+    #     command: "push"
+    #     format: "deb"
+    #     owner: "openhd"
+    #     repo: "openhd-2-3-evo"
+    #     distro: "ubuntu"
+    #     release: "jammy"
+    #     republish: "true" # needed ONLY if version is not changing
+    #     file: "linux-header*.deb"
+
