@@ -28,7 +28,7 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt update
-        sudo apt install -y git kernel-wedge build-essential kernel-wedge fakeroot flex bison binutils-dev libssl-dev libelf-dev libslang2-dev libpci-dev libiberty-dev libcap-dev libudev-dev libdw-dev libunwind-dev libncurses-dev libzstd-dev libnuma-dev libbabeltrace-dev llvm default-jre default-jdk linux-cloud-tools-common linux-tools-$(uname -r)
+        sudo apt install -y wireless-crda git kernel-wedge build-essential kernel-wedge fakeroot flex bison binutils-dev libssl-dev libelf-dev libslang2-dev libpci-dev libiberty-dev libcap-dev libudev-dev libdw-dev libunwind-dev libncurses-dev libzstd-dev libnuma-dev libbabeltrace-dev llvm default-jre default-jdk linux-cloud-tools-common linux-tools-$(uname -r)
         
     # - name: clone drivers into kernel
     #   run: |
