@@ -48,7 +48,7 @@ jobs:
 
     - name: build kernel
       run: |
-        ./build_kernel.sh
+        AMDGPU_BUILTIN=yes ./build_kernel.sh
 
     - name: Upload to Github
       uses: 'actions/upload-artifact@v2'
