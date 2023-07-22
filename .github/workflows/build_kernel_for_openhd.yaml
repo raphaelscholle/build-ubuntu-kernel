@@ -57,7 +57,7 @@ jobs:
 
     - name: build kernel
       run: |
-        ./build_kernel.
+        ./build_kernel.sh
         ls -a
 
     - name: Upload to Github
