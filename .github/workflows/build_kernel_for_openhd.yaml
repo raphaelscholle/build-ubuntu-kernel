@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     env:
       CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
     steps:
@@ -28,7 +28,7 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt update
-        sudo apt install -y wireless-tools wireless-regdb git kernel-wedge build-essential kernel-wedge fakeroot flex bison binutils-dev libssl-dev libelf-dev libslang2-dev libpci-dev libiberty-dev libcap-dev libudev-dev libdw-dev libunwind-dev libncurses-dev libzstd-dev libnuma-dev libbabeltrace-dev llvm default-jre default-jdk linux-cloud-tools-common linux-tools-$(uname -r)
+        sudo apt install -y crda wireless-crda wireless-tools git kernel-wedge build-essential kernel-wedge fakeroot flex bison binutils-dev libssl-dev libelf-dev libslang2-dev libpci-dev libiberty-dev libcap-dev libudev-dev libdw-dev libunwind-dev libncurses-dev libzstd-dev libnuma-dev libbabeltrace-dev llvm default-jre default-jdk linux-cloud-tools-common linux-tools-$(uname -r)
         
     # - name: clone drivers into kernel
     #   run: |
