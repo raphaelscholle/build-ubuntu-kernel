@@ -58,6 +58,7 @@ jobs:
     - name: build kernel
       run: |
         ./build_kernel.sh
+        echo "test"
         ls -a
 
     - name: Upload to Github
@@ -66,7 +67,6 @@ jobs:
         name: "rock5-kernel-openhd"
         path: |
           *.deb
-          ../*.deb
           
     # - name: Push
     #   id: push
