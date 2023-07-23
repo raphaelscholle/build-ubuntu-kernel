@@ -59,6 +59,7 @@ jobs:
       run: |
         ./build_kernel.sh
         echo "test"
+        mv ../*.deb ./
         ls -a
 
     - name: Upload to Github
