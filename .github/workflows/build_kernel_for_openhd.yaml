@@ -58,15 +58,13 @@ jobs:
     - name: build kernel
       run: |
         ./build_kernel.sh
-        echo "test"
-        ls -a
 
     - name: Upload to Github
       uses: 'actions/upload-artifact@v2'
       with:
         name: "rock5-kernel-openhd"
         path: |
-          *.deb
+          /home/runner/kernel_main/compiled/6.3.7*/*.deb
           
     # - name: Push
     #   id: push
